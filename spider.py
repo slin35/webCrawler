@@ -1,5 +1,6 @@
 from urllib.request import urlopen
 from linkFinder import linkFinder
+import mongoUtil
 
 class spider:
     base_url = ''
@@ -13,7 +14,7 @@ class spider:
         spider.domain_name = domain_name
         spider.queue.add(base_url)
         self.crawl_page("first spider", spider.base_url)
-
+        self.connector = mongoUtil.DBConnector()
 
     @staticmethod
     def crawl_page(thread_name, page_url):
@@ -50,12 +51,10 @@ class spider:
             if spider.domain_name not in url:
                 continue
             spider.queue.add(url)
-    
+
     @staticmethod
     def update_mongo():
         pass
-
-
 
 
 

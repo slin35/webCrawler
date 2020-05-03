@@ -29,14 +29,14 @@ class spider:
         html_string = ''
         try:
             response = urlopen(page_url)
-            if response.getheader('Content-Type') == 'text/html':
+            if 'text/html' in response.getheader('Content-Type'):
                 html_bytes = response.read()
                 html_string = html_bytes.decode("utf-8")
 
             finder = linkFinder(spider.base_url, page_url)
             finder.feed(html_string)
-        except:
-            print("cannot crawl page")
+        except Exception as e:
+            print(e)
             return set()
         return finder.get_links()
 
@@ -54,6 +54,7 @@ class spider:
     @staticmethod
     def update_mongo():
         pass
+
 
 
 
